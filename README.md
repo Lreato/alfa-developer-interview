@@ -29,3 +29,8 @@ Referência [OData Services](https://www.odata.org/odata-services/)
 - [ ] ***Excluir*** a pessoa que você incluiu acima
 - [ ] Consultar todos os aeroportos que o ***endereço da localização*** contenha a palavra 'District'
 
+
+
+Para executar rodar os comandos:
+- npm install
+- npm start
