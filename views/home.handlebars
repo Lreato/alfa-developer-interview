@@ -1,0 +1,91 @@
+<script>
+      function adicionar() {
+            window.location.replace("http://localhost:8081/adicionar");
+      }
+
+      function excluir(data) {
+            var usename = data;
+            var raw = "";
+            var requestOptions = {
+                  method: 'DELETE',
+                  body: raw,
+                  redirect: 'follow'
+            };
+            fetch("http://services.odata.org/TripPinRESTierService/(S(3mslpb2bc0k5ufk24olpghzx))/People('" + usename + "')", requestOptions)
+                  .then(response => response.text())
+                  .then(result => console.log(result))
+                  .catch(error => console.log('error', error));
+            
+      }
+
+      function search() {
+            var namesearch = document.getElementById("search").value;
+            console.log(namesearch)
+            window.location.replace("http://localhost:8081/home/"+namesearch);
+      }
+</script>
+<div class="container">
+      <div class="row" style="margin-top:51px;margin-bottom:15px;">
+            <div class="col-md-12">
+                  <h1>Lista de Pessoas: </h1>
+            </div>
+      </div>
+      <div class="row" style="margin-top:15px;margin-bottom:15px;">
+            <div class="col-md-3">
+                  <button class="btn btn-default" type="submit" OnClick="adicionar({{Username}})">Adicionar
+                        Nova</button>
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-3">
+                  <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">
+                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                                    <path fill-rule="evenodd"
+                                          d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                              </svg>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Username" id="search"
+                              aria-describedby="basic-addon1">
+                        <span class="input-group-btn">
+                              <button class="btn btn-primary" type="button" onclick="search()">Go!</button>
+                        </span>
+                  </div>
+            </div>
+      </div>
+
+      <table class="table">
+            <thead>
+                  <tr>
+                        <th scope="col">UserName</th>
+                        <th scope="col">FirstName</th>
+                        <th scope="col">LastName</th>
+                        <th scope="col">Ação</th>
+                  </tr>
+            </thead>
+            <tbody>
+                  {{#each posts}}
+                  <tr>
+                        <td scope="row"> {{UserName}}</td>
+                        <td>
+                              {{FirstName}}
+                        </td>
+                        <td>
+                              {{LastName}}
+                        </td>
+                        <td>
+                              <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"
+                                          onClick="excluir('{{UserName}}')">X</button>
+                              </span>
+                        </td>
+                  </tr>
+                  {{/each}}
+
+            </tbody>
+      </table>
+
+
+</div>
